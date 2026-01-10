@@ -244,7 +244,7 @@
                 document.getElementById("output-wll-per-line").textContent = `${wllPerLine.toFixed(1)} ${units}`;
                 document.getElementById("output-wll-per-basket").textContent = `${wllPerBasket.toFixed(1)} ${units}`;
 
-                const minimumLines = parseInt(Math.round(load / wllPerLine)) || 0;
+                const minimumLines = parseInt(Math.max(Math.round(load / wllPerLine), 1)) || 0;
                 const minimumBaskets = Math.ceil(minimumLines / 2);
                 console.log(`Minimum Lines: ${minimumLines}, Baskets: ${minimumBaskets}`);
 
