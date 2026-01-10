@@ -124,12 +124,17 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">Minimum Lines Needed</th>
+                                    <th scope="row" colspan="2">Minimum Needed</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td id="output-minimum-lines-needed" class="w-50 font-monospace">5</td>
+                                    <td>Lines</td>
+                                    <td id="output-minimum-lines" class="w-50 font-monospace">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Baskets</td>
+                                    <td id="output-minimum-baskets" class="w-50 font-monospace">0</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -226,10 +231,12 @@
                 document.getElementById("output-wll-per-line").textContent = `${wllPerLine.toFixed(1)} ${units}`;
                 document.getElementById("output-wll-per-basket").textContent = `${wllPerBasket.toFixed(1)} ${units}`;
 
-                const minimumLinesNeeded = parseInt(Math.round(load / wllPerLine)) || 0;
-                console.log(`Minimum Lines Needed: ${minimumLinesNeeded}`);
+                const minimumLines = parseInt(Math.round(load / wllPerLine)) || 0;
+                const minimumBaskets = Math.ceil(minimumLines / 2);
+                console.log(`Minimum Lines: ${minimumLines}, Baskets: ${minimumBaskets}`);
 
-                document.getElementById("output-minimum-lines-needed").textContent = `${minimumLinesNeeded}`;
+                document.getElementById("output-minimum-lines").textContent = `${minimumLines}`;
+                document.getElementById("output-minimum-baskets").textContent = `${minimumBaskets}`;
             };
 
             // Initialize on page load
