@@ -183,21 +183,24 @@
 
             var mbs = document.getElementById("input-cord-mbs").value;
             document.getElementById("input-cord-mbs").addEventListener("input", (event) => {
-                mbs = parseInt(event.target.value) || 0;
+                let mbs_input = parseInt(event.target.value) || 0;
+                mbs = Math.max(mbs_input, 0);
                 computeDeratedMBS();
                 console.log(`MBS: ${mbs}`);
             });
 
             let load = document.getElementById("input-load").value;
             document.getElementById("input-load").addEventListener("input", (event) => {
-                load = parseInt(event.target.value) || 0;
+                let load_input = parseInt(event.target.value) || 0;
+                load = Math.max(load_input, 0);
                 computeWLL();
                 console.log(`Load: ${load}`);
             });
 
             let safetyFactor = parseInt(document.getElementById("input-safety-factor").value) || 10;
             document.getElementById("input-safety-factor").addEventListener("input", (event) => {
-                safetyFactor = parseInt(event.target.value) || 10;
+                let sf_input = parseInt(event.target.value) || 10;
+                safetyFactor = Math.max(sf_input, 1);
                 computeWLL();
                 console.log(`Safety Factor: ${safetyFactor}`);
             });
@@ -216,7 +219,7 @@
 
             const computeWLL = () => {
                 const deratedMbs = parseFloat(mbs * deratePercent) || 0;
-                const wllPerLine = safetyFactor > 0 ? deratedMbs / safetyFactor : 0;
+                const wllPerLine = deratedMbs / safetyFactor;
                 const wllPerBasket = wllPerLine * 2;
                 console.log(`WLL Per Line: ${wllPerLine}, Per Basket: ${wllPerBasket}`);
 
