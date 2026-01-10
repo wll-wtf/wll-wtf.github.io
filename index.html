@@ -39,7 +39,7 @@
                             <div class="col">
                                 <div class="input-group mb-3">
                                     <div class="btn-group w-100" role="group" id="input-units" aria-label="Basic radio toggle button group">
-                                        <input type="radio" class="btn-check" name="btnradio" id="input-units-imperial" autocomplete="off" checked/>
+                                        <input type="radio" class="btn-check" name="btnradio" id="input-units-imperial" autocomplete="off"/>
                                         <label class="btn btn-outline-secondary" for="input-units-imperial">Imperial</label>
 
                                         <input type="radio" class="btn-check" name="btnradio" id="input-units-metric" autocomplete="off"/>
@@ -166,19 +166,31 @@
             crossorigin="anonymous"
         ></script>
         <script>
-            let units = document.getElementById("input-units-imperial").checked ? "lbs" : "kg";
+            const savedUnits = localStorage.getItem("wll-units");
+            let units = savedUnits === "kg" ? "kg" : "lbs";
+            if (savedUnits === "kg") {
+                document.getElementById("input-units-metric").checked = true;
+                document.getElementById("input-units-imperial").checked = false;
+            } else {
+                document.getElementById("input-units-metric").checked = false;
+                document.getElementById("input-units-imperial").checked = true;
+            }
+
             const updateLabels = () => {
                 document.getElementById("label-mbs").textContent = `${units}`;
                 document.getElementById("label-load").textContent = `${units}`;
             };
+
             document.getElementById("input-units-imperial").addEventListener("change", () => {
                 units = "lbs";
+                localStorage.setItem("wll-units", units);
                 updateLabels();
                 computeDeratedMBS();
                 console.log(`Units: ${units}`);
             });
             document.getElementById("input-units-metric").addEventListener("change", () => {
                 units = "kg";
+                localStorage.setItem("wll-units", units);
                 updateLabels();
                 computeDeratedMBS();
                 console.log(`Units: ${units}`);
@@ -245,6 +257,7 @@
             };
 
             // Initialize on page load
+            updateLabels();
             computeDeratedMBS();
             computeWLL();
         </script>
