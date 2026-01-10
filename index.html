@@ -26,23 +26,28 @@
                     <p class="lead text-center">A working load limit (WLL) calculator for suspension practitioners</p>
 
                     <form class="my-4">
-                        <div class="input-group mb-3">
-                            <div class="btn-group" role="group" id="input-units" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" id="input-units-imperial" autocomplete="off" checked/>
-                                <label class="btn btn-outline-secondary" for="input-units-imperial">Imperial</label>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text fw-medium" for="input-fiber-class">Fiber</label>
+                                    <select class="form-select" id="input-fiber-class">
+                                        <option value="1" selected>Class 1</option>
+                                        <option value="2">Class 2</option>
+                                    </select>
+                                </div>
+                            </div> <!-- col -->
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <div class="btn-group w-100" role="group" id="input-units" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check" name="btnradio" id="input-units-imperial" autocomplete="off" checked/>
+                                        <label class="btn btn-outline-secondary" for="input-units-imperial">Imperial</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="input-units-metric" autocomplete="off" />
-                                <label class="btn btn-outline-secondary" for="input-units-metric">Metric</label>
-                            </div>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <label class="input-group-text fw-medium" for="input-fiber-class">Fiber</label>
-                            <select class="form-select" id="input-fiber-class">
-                                <option value="1" selected>Class 1</option>
-                                <option value="2">Class 2</option>
-                            </select>
-                        </div>
+                                        <input type="radio" class="btn-check" name="btnradio" id="input-units-metric" autocomplete="off"/>
+                                        <label class="btn btn-outline-secondary" for="input-units-metric">Metric</label>
+                                    </div>
+                                </div>
+                            </div> <!-- col -->
+                        </div> <!-- row -->
 
                         <div class="input-group mb-3">
                             <span id="label-mbs" class="input-group-text fw-medium" for="input-cord-mbs"
@@ -65,7 +70,7 @@
                                 id="input-load"
                                 type="text"
                                 class="form-control text-end font-monospace"
-                                placeholder="Estimated Load Weight"
+                                placeholder="Estimated Load"
                                 aria-label="Load"
                                 aria-describedby="input-load"
                                 value=""
