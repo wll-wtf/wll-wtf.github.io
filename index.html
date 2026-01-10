@@ -50,44 +50,38 @@
                         </div> <!-- row -->
 
                         <div class="input-group mb-3">
-                            <span id="label-mbs" class="input-group-text fw-medium" for="input-cord-mbs"
-                                >MBS (lbs)</span
-                            >
-                            <input
-                                id="input-cord-mbs"
+                            <span class="input-group-text fw-medium">MBS</span>
+                            <input id="input-cord-mbs"
                                 type="text"
                                 class="form-control text-end font-monospace"
                                 placeholder="Minimum Breaking Strength"
                                 aria-label="Minimum Breaking Strength"
                                 aria-describedby="input-cord-mbs"
-                                value=""
-                            />
+                                value=""/>
+                              <span id="label-mbs" class="input-group-text fw-medium">lbs</span>
                         </div>
 
                         <div class="input-group mb-3">
-                            <span id="label-load" class="input-group-text fw-medium" for="input-load">Load (lbs)</span>
-                            <input
-                                id="input-load"
+                            <span class="input-group-text fw-medium">Load</span>
+                            <input id="input-load"
                                 type="text"
                                 class="form-control text-end font-monospace"
                                 placeholder="Estimated Load"
                                 aria-label="Load"
                                 aria-describedby="input-load"
-                                value=""
-                            />
+                                value=""/>
+                            <span id="label-load" class="input-group-text fw-medium">lbs</span>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text fw-medium" for="input-safety-factor">Safety Factor</span>
-                            <input
-                                id="input-safety-factor"
+                            <input id="input-safety-factor"
                                 type="text"
                                 class="form-control text-end font-monospace"
                                 placeholder="Safety Factor"
                                 aria-label="Safety Factor"
                                 aria-describedby="input-safety-factor"
-                                value="10"
-                            />
+                                value="10"/>
                         </div>
                     </form>
 
@@ -174,8 +168,8 @@
         <script>
             let units = document.getElementById("input-units-imperial").checked ? "lbs" : "kg";
             const updateLabels = () => {
-                document.getElementById("label-mbs").textContent = `MBS (${units})`;
-                document.getElementById("label-load").textContent = `Load (${units})`;
+                document.getElementById("label-mbs").textContent = `${units}`;
+                document.getElementById("label-load").textContent = `${units}`;
             };
             document.getElementById("input-units-imperial").addEventListener("change", () => {
                 units = "lbs";
@@ -229,9 +223,7 @@
                 console.log(`Derated MBS: ${deratedMbs} ${fiberPercent}`);
 
                 document.getElementById("output-derated-mbs").textContent = `${deratedMbs.toFixed(1)} ${units}`;
-                document.getElementById(
-                    "output-derated-percent"
-                ).textContent = `(${fiberPercent}% Class ${fiberClass})`;
+                document.getElementById("output-derated-percent").textContent = `(${fiberPercent}% Class ${fiberClass})`;
                 computeWLL();
             };
 
