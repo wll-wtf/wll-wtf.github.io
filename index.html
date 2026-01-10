@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>WLL.wtf</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-sm-12 col-md-6">
+                    <h1 class="text-center">WLL.wtf</h1>
+                    <p class="lead text-center">A working load limit (WLL) calculator for suspension practitioners</p>
+
+                    <form class="my-4">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text fw-medium" for="input-units">Units</label>
+                            <select class="form-select" id="input-units">
+                                <option value="lbs" selected>Imperial (lbs)</option>
+                                <option value="kg">Metric (kg)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text fw-medium" for="input-fiber-class">Fiber</label>
+                            <select class="form-select" id="input-fiber-class">
+                                <option value="1" selected>Class 1</option>
+                                <option value="2">Class 2</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span id="label-mbs" class="input-group-text fw-medium" for="input-cord-mbs"
+                                >MBS (lbs)</span
+                            >
+                            <input
+                                id="input-cord-mbs"
+                                type="text"
+                                class="form-control text-end font-monospace"
+                                placeholder="Minimum Breaking Strength"
+                                aria-label="Minimum Breaking Strength"
+                                aria-describedby="input-cord-mbs"
+                                value=""
+                            />
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span id="label-load" class="input-group-text fw-medium" for="input-load">Load (lbs)</span>
+                            <input
+                                id="input-load"
+                                type="text"
+                                class="form-control text-end font-monospace"
+                                placeholder="Estimated Load Weight"
+                                aria-label="Load"
+                                aria-describedby="input-load"
+                                value=""
+                            />
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text fw-medium" for="input-safety-factor">Safety Factor</span>
+                            <input
+                                id="input-safety-factor"
+                                type="text"
+                                class="form-control text-end font-monospace"
+                                placeholder="Safety Factor"
+                                aria-label="Safety Factor"
+                                aria-describedby="input-safety-factor"
+                                value="10"
+                            />
+                        </div>
+                    </form>
+
+                    <div class="table-responsive my-4">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="row" colspan="2">Derated (Knotted) MBS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="output-derated-mbs" class="w-50 font-monospace">0 lbs</td>
+                                    <td id="output-derated-percent" class="w-50 font-monospace">(50%)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive my-4">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="row" colspan="2">Working Load Limit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Per Line</td>
+                                    <td id="output-wll-per-line" class="w-50 font-monospace">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Per Basket</td>
+                                    <td id="output-wll-per-basket" class="w-50 font-monospace">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive my-4">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Minimum Lines Needed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="output-minimum-lines-needed" class="w-50 font-monospace">5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="py-4 my-4">
+                        <p class="text-body-secondary">
+                            <small>
+                                <i>
+                                    This calculator is designed to assist you in selecting the most appropriate cord for
+                                    your specific application.
+                                    <b>Please note:</b> While overall tensile strength is important, other properties
+                                    should also be considered when choosing cord for critical applications. Use this
+                                    tool as a guide only.
+                                </i>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            let units = document.getElementById("input-units").value;
+            const updateLabels = () => {
+                document.getElementById("label-mbs").textContent = `MBS (${units})`;
+                document.getElementById("label-load").textContent = `Load (${units})`;
+            };
+            document.getElementById("input-units").addEventListener("input", (event) => {
+                units = event.target.value;
+                updateLabels();
+                computeDeratedMBS();
+                console.log(`Units: ${units}`);
+            });
+
+            let fiberClass = parseInt(document.getElementById("input-fiber-class").value) || 1;
+            let deratePercent = fiberClass === 1 ? 0.5 : 0.3;
+            document.getElementById("input-fiber-class").addEventListener("input", (event) => {
+                fiberClass = parseInt(event.target.value) || 1;
+                deratePercent = fiberClass === 1 ? 0.5 : 0.3;
+                computeDeratedMBS();
+                console.log(`Fiber Class: ${fiberClass}, Derate Percent: ${deratePercent}`);
+            });
+
+            var mbs = document.getElementById("input-cord-mbs").value;
+            document.getElementById("input-cord-mbs").addEventListener("input", (event) => {
+                mbs = parseInt(event.target.value) || 0;
+                computeDeratedMBS();
+                console.log(`MBS: ${mbs}`);
+            });
+
+            let load = document.getElementById("input-load").value;
+            document.getElementById("input-load").addEventListener("input", (event) => {
+                load = parseInt(event.target.value) || 0;
+                computeWLL();
+                console.log(`Load: ${load}`);
+            });
+
+            let safetyFactor = parseInt(document.getElementById("input-safety-factor").value) || 10;
+            document.getElementById("input-safety-factor").addEventListener("input", (event) => {
+                safetyFactor = parseInt(event.target.value) || 10;
+                computeWLL();
+                console.log(`Safety Factor: ${safetyFactor}`);
+            });
+
+            const computeDeratedMBS = () => {
+                const deratedMbs = parseFloat(mbs * deratePercent) || 0;
+                const fiberPercent = deratePercent * 100;
+                console.log(`Derated MBS: ${deratedMbs} ${fiberPercent}`);
+
+                document.getElementById("output-derated-mbs").textContent = `${deratedMbs.toFixed(1)} ${units}`;
+                document.getElementById(
+                    "output-derated-percent"
+                ).textContent = `(${fiberPercent}% Class ${fiberClass})`;
+                computeWLL();
+            };
+
+            const computeWLL = () => {
+                const deratedMbs = parseFloat(mbs * deratePercent) || 0;
+                const wllPerLine = safetyFactor > 0 ? deratedMbs / safetyFactor : 0;
+                const wllPerBasket = wllPerLine * 2;
+                console.log(`WLL Per Line: ${wllPerLine}, Per Basket: ${wllPerBasket}`);
+
+                document.getElementById("output-wll-per-line").textContent = `${wllPerLine.toFixed(1)} ${units}`;
+                document.getElementById("output-wll-per-basket").textContent = `${wllPerBasket.toFixed(1)} ${units}`;
+
+                const minimumLinesNeeded = parseInt(Math.round(load / wllPerLine)) || 0;
+                console.log(`Minimum Lines Needed: ${minimumLinesNeeded}`);
+
+                document.getElementById("output-minimum-lines-needed").textContent = `${minimumLinesNeeded}`;
+            };
+
+            // Initialize on page load
+            computeDeratedMBS();
+            computeWLL();
+        </script>
+    </body>
+</html>
