@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -192,7 +192,7 @@
         console.log(`Fiber Class: ${fiberClass}, Derate Percent: ${deratePercent}`);
       });
 
-      var mbs = document.getElementById("input-cord-mbs").value;
+      let mbs = document.getElementById("input-cord-mbs").value;
       document.getElementById("input-cord-mbs").addEventListener("input", (event) => {
         let mbs_input = parseInt(event.target.value) || 0;
         mbs = Math.max(mbs_input, 0);
@@ -247,6 +247,14 @@
       updateLabels();
       computeDeratedMBS();
       computeWLL();
+
+      const mediaQueryListColorScheme = window.matchMedia("(prefers-color-scheme: dark)");
+      function handleColorSchemeChange(mql) {
+        let theme = mql.matches ? "dark" : "light";
+        document.querySelector("html").setAttribute("data-bs-theme", theme);
+      }
+      handleColorSchemeChange(mediaQueryListColorScheme);
+      mediaQueryListColorScheme.addEventListener("change", handleColorSchemeChange);
     </script>
   </body>
 </html>
