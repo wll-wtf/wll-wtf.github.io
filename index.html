@@ -41,10 +41,10 @@
               <div class="col">
                 <div class="input-group mb-3">
                   <div class="btn-group w-100" role="group" id="input-units" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" id="input-units-imperial" autocomplete="off" />
+                    <input type="radio" class="btn-check" name="btnradio" id="input-units-imperial" autocomplete="off" data-units="lbs" />
                     <label class="btn btn-outline-secondary" for="input-units-imperial">Imperial</label>
 
-                    <input type="radio" class="btn-check" name="btnradio" id="input-units-metric" autocomplete="off" />
+                    <input type="radio" class="btn-check" name="btnradio" id="input-units-metric" autocomplete="off" data-units="kg" />
                     <label class="btn btn-outline-secondary" for="input-units-metric">Metric</label>
                   </div>
                 </div>
@@ -153,30 +153,31 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      const savedUnits = localStorage.getItem("wll-units");
-      let isKg = savedUnits === "kg";
-      let units = isKg ? "kg" : "lbs";
-      document.getElementById("input-units-metric").checked = isKg;
-      document.getElementById("input-units-imperial").checked = !isKg;
+      const pounds = "lbs";
+      const unitStorageKey = "wll-units";
+      let units = localStorage.getItem(unitStorageKey) || pounds;
 
-      function updateLabels() {
+      function setUnits(value) {
+        console.log(`Set units: ${value}`);
+        units = value;
+        localStorage.setItem(unitStorageKey, value);
+
+        let isLbs = value === pounds;
+        document.getElementById("input-units-metric").checked = !isLbs;
+        document.getElementById("input-units-imperial").checked = isLbs;
+
         document.getElementById("label-mbs").textContent = `${units}`;
         document.getElementById("label-load").textContent = `${units}`;
+
+        computeDeratedMBS();
       }
 
-      document.getElementById("input-units-imperial").addEventListener("change", () => {
-        units = "lbs";
-        localStorage.setItem("wll-units", units);
-        updateLabels();
-        computeDeratedMBS();
-        console.log(`Units: ${units}`);
+      document.getElementById("input-units-imperial").addEventListener("change", (event) => {
+        setUnits(event.target.dataset.units);
       });
-      document.getElementById("input-units-metric").addEventListener("change", () => {
-        units = "kg";
-        localStorage.setItem("wll-units", units);
-        updateLabels();
-        computeDeratedMBS();
-        console.log(`Units: ${units}`);
+
+      document.getElementById("input-units-metric").addEventListener("change", (event) => {
+        setUnits(event.target.dataset.units);
       });
 
       let fiberClass = parseInt(document.getElementById("input-fiber-class").value) || 1;
@@ -239,18 +240,16 @@
         document.getElementById("output-minimum-baskets").textContent = `${minimumBaskets}`;
       }
 
-      // Initialize on page load
-      updateLabels();
-      computeDeratedMBS();
-      computeWLL();
-
       const mediaQueryListColorScheme = window.matchMedia("(prefers-color-scheme: dark)");
       function handleColorSchemeChange(mql) {
         let theme = mql.matches ? "dark" : "light";
         document.querySelector("html").setAttribute("data-bs-theme", theme);
       }
-      handleColorSchemeChange(mediaQueryListColorScheme);
       mediaQueryListColorScheme.addEventListener("change", handleColorSchemeChange);
+
+      // Initialize on page load
+      setUnits(units);
+      handleColorSchemeChange(mediaQueryListColorScheme);
     </script>
   </body>
 </html>
