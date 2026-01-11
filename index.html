@@ -154,19 +154,15 @@
     ></script>
     <script>
       const savedUnits = localStorage.getItem("wll-units");
-      let units = savedUnits === "kg" ? "kg" : "lbs";
-      if (savedUnits === "kg") {
-        document.getElementById("input-units-metric").checked = true;
-        document.getElementById("input-units-imperial").checked = false;
-      } else {
-        document.getElementById("input-units-metric").checked = false;
-        document.getElementById("input-units-imperial").checked = true;
-      }
+      let isKg = savedUnits === "kg";
+      let units = isKg ? "kg" : "lbs";
+      document.getElementById("input-units-metric").checked = isKg;
+      document.getElementById("input-units-imperial").checked = !isKg;
 
-      const updateLabels = () => {
+      function updateLabels() {
         document.getElementById("label-mbs").textContent = `${units}`;
         document.getElementById("label-load").textContent = `${units}`;
-      };
+      }
 
       document.getElementById("input-units-imperial").addEventListener("change", () => {
         units = "lbs";
@@ -216,7 +212,7 @@
         console.log(`Safety Factor: ${safetyFactor}`);
       });
 
-      const computeDeratedMBS = () => {
+      function computeDeratedMBS() {
         const deratedMbs = parseFloat(mbs * deratePercent) || 0;
         const fiberPercent = deratePercent * 100;
         console.log(`Derated MBS: ${deratedMbs} ${fiberPercent}`);
@@ -224,9 +220,9 @@
         document.getElementById("output-derated-mbs").textContent = `${deratedMbs.toFixed(1)} ${units}`;
         document.getElementById("output-derated-percent").textContent = `(${fiberPercent}% Class ${fiberClass})`;
         computeWLL();
-      };
+      }
 
-      const computeWLL = () => {
+      function computeWLL() {
         const deratedMbs = parseFloat(mbs * deratePercent) || 0;
         const wllPerLine = deratedMbs / safetyFactor;
         const wllPerBasket = wllPerLine * 2;
@@ -241,7 +237,7 @@
 
         document.getElementById("output-minimum-lines").textContent = `${minimumLines}`;
         document.getElementById("output-minimum-baskets").textContent = `${minimumBaskets}`;
-      };
+      }
 
       // Initialize on page load
       updateLabels();
