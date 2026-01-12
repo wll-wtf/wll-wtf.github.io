@@ -88,7 +88,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td id="output-derated-mbs" class="w-50 font-monospace">0 lbs</td>
+                  <td class="w-50 font-monospace"><span id="output-derated-mbs">0</span> <span id="label-derated-mbs">lbs</span></td>
                   <td id="output-derated-percent" class="w-50 font-monospace">(50%)</td>
                 </tr>
               </tbody>
@@ -105,11 +105,11 @@
               <tbody>
                 <tr>
                   <td>Per Line</td>
-                  <td id="output-wll-per-line" class="w-50 font-monospace">0</td>
+                  <td class="w-50 font-monospace"><span id="output-wll-per-line">0</span> <span id="label-per-line">lbs</span></td>
                 </tr>
                 <tr>
                   <td>Per Basket</td>
-                  <td id="output-wll-per-basket" class="w-50 font-monospace">0</td>
+                  <td class="w-50 font-monospace"><span id="output-wll-per-basket">0</span> <span id="label-per-basket">lbs</span></td>
                 </tr>
               </tbody>
             </table>
@@ -213,7 +213,9 @@
         document.getElementById("label-mbs").textContent = `${units}`;
         document.getElementById("label-load").textContent = `${units}`;
 
-        computeDeratedMBS();
+        document.getElementById("label-derated-mbs").textContent = `${units}`;
+        document.getElementById("label-per-line").textContent = `${units}`;
+        document.getElementById("label-per-basket").textContent = `${units}`;
       }
 
       function computeDeratedMBS() {
@@ -221,7 +223,7 @@
         const fiberPercent = deratePercent * 100;
         console.log(`Derated MBS: ${deratedMbs} ${fiberPercent}`);
 
-        document.getElementById("output-derated-mbs").textContent = `${deratedMbs.toFixed(1)} ${units}`;
+        document.getElementById("output-derated-mbs").textContent = `${deratedMbs.toFixed(1)}`;
         document.getElementById("output-derated-percent").textContent = `(${fiberPercent}% Class ${fiberClass})`;
         computeWLL();
       }
@@ -232,8 +234,8 @@
         const wllPerBasket = wllPerLine * 2;
         console.log(`WLL Per Line: ${wllPerLine}, Per Basket: ${wllPerBasket}`);
 
-        document.getElementById("output-wll-per-line").textContent = `${wllPerLine.toFixed(1)} ${units}`;
-        document.getElementById("output-wll-per-basket").textContent = `${wllPerBasket.toFixed(1)} ${units}`;
+        document.getElementById("output-wll-per-line").textContent = `${wllPerLine.toFixed(1)}`;
+        document.getElementById("output-wll-per-basket").textContent = `${wllPerBasket.toFixed(1)}`;
 
         const minimumLines = parseInt(Math.max(Math.ceil(load / wllPerLine), 1)) || 0;
         const minimumBaskets = Math.ceil(minimumLines / 2);
