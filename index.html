@@ -207,7 +207,7 @@
 
       let safetyFactor = parseInt(document.getElementById("input-safety-factor").value) || 10;
       document.getElementById("input-safety-factor").addEventListener("input", (event) => {
-        let sf_input = parseInt(event.target.value) || 10;
+        let sf_input = parseInt(event.target.value) || 1;
         safetyFactor = Math.max(sf_input, 1);
         computeWLL();
         console.log(`Safety Factor: ${safetyFactor}`);
