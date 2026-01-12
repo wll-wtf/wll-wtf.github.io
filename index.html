@@ -155,7 +155,15 @@
     <script>
       const pounds = "lbs";
       const unitStorageKey = "wll-units";
+      const fiberClass1Percent = 0.5;
+      const fiberClass2Percent = 0.3;
+
       let units = localStorage.getItem(unitStorageKey) || pounds;
+      let fiberClass = 1;
+      let deratePercent = fiberClass1Percent;
+      let mbs = 0;
+      let load = 0;
+      let safetyFactor = 10;
 
       function setUnits(value) {
         console.log(`Set units: ${value}`);
@@ -180,16 +188,13 @@
         setUnits(event.target.dataset.units);
       });
 
-      let fiberClass = parseInt(document.getElementById("input-fiber-class").value) || 1;
-      let deratePercent = fiberClass === 1 ? 0.5 : 0.3;
       document.getElementById("input-fiber-class").addEventListener("input", (event) => {
         fiberClass = parseInt(event.target.value) || 1;
-        deratePercent = fiberClass === 1 ? 0.5 : 0.3;
+        deratePercent = fiberClass === 1 ? fiberClass1Percent : fiberClass2Percent;
         computeDeratedMBS();
         console.log(`Fiber Class: ${fiberClass}, Derate Percent: ${deratePercent}`);
       });
 
-      let mbs = document.getElementById("input-cord-mbs").value;
       document.getElementById("input-cord-mbs").addEventListener("input", (event) => {
         let mbs_input = parseInt(event.target.value) || 0;
         mbs = Math.max(mbs_input, 0);
@@ -197,7 +202,6 @@
         console.log(`MBS: ${mbs}`);
       });
 
-      let load = document.getElementById("input-load").value;
       document.getElementById("input-load").addEventListener("input", (event) => {
         let load_input = parseInt(event.target.value) || 0;
         load = Math.max(load_input, 0);
@@ -205,7 +209,6 @@
         console.log(`Load: ${load}`);
       });
 
-      let safetyFactor = parseInt(document.getElementById("input-safety-factor").value) || 10;
       document.getElementById("input-safety-factor").addEventListener("input", (event) => {
         let sf_input = parseInt(event.target.value) || 1;
         safetyFactor = Math.max(sf_input, 1);
