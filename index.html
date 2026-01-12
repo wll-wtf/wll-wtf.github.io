@@ -165,21 +165,6 @@
       let load = 0;
       let safetyFactor = 10;
 
-      function setUnits(value) {
-        console.log(`Set units: ${value}`);
-        units = value;
-        localStorage.setItem(unitStorageKey, value);
-
-        let isLbs = value === pounds;
-        document.getElementById("input-units-metric").checked = !isLbs;
-        document.getElementById("input-units-imperial").checked = isLbs;
-
-        document.getElementById("label-mbs").textContent = `${units}`;
-        document.getElementById("label-load").textContent = `${units}`;
-
-        computeDeratedMBS();
-      }
-
       document.getElementById("input-units-imperial").addEventListener("change", (event) => {
         setUnits(event.target.dataset.units);
       });
@@ -215,6 +200,21 @@
         computeWLL();
         console.log(`Safety Factor: ${safetyFactor}`);
       });
+
+      function setUnits(value) {
+        console.log(`Set units: ${value}`);
+        units = value;
+        localStorage.setItem(unitStorageKey, value);
+
+        let isLbs = value === pounds;
+        document.getElementById("input-units-metric").checked = !isLbs;
+        document.getElementById("input-units-imperial").checked = isLbs;
+
+        document.getElementById("label-mbs").textContent = `${units}`;
+        document.getElementById("label-load").textContent = `${units}`;
+
+        computeDeratedMBS();
+      }
 
       function computeDeratedMBS() {
         const deratedMbs = parseFloat(mbs * deratePercent) || 0;
