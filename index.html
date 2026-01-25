@@ -161,8 +161,8 @@
       let units = localStorage.getItem(unitStorageKey) || pounds;
       let fiberClass = 1;
       let deratePercent = fiberClass1Percent;
-      let mbs = 0;
-      let load = 0;
+      let mbs = 0.0;
+      let load = 0.0;
       let safetyFactor = 10;
 
       document.getElementById("input-units-imperial").addEventListener("change", (event) => {
@@ -254,6 +254,7 @@
 
       // Initialize on page load
       setUnits(units);
+      computeDeratedMBS();
       handleColorSchemeChange(mediaQueryListColorScheme);
     </script>
   </body>
