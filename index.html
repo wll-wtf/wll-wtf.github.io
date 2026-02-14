@@ -17,6 +17,7 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   </head>
   <body class="py-4">
     <div class="container">
@@ -83,7 +84,21 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="row" colspan="2">Derated Minimum Breaking Strength</th>
+                  <th scope="row" colspan="2">
+                    Derated Minimum Breaking Strength (dMBS)
+                    <a class="ps-2 text-secondary" data-bs-toggle="collapse" href="#collapseDMBS" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <i class="bi bi-info-circle"></i>
+                    </a>
+                    <div class="collapse" id="collapseDMBS">
+                      <div class="my-2 fw-normal">
+                        <code>Fiber Class &times; MBS = <span class="text-body">dMBS</span></code>
+                        <br />
+                        <code>
+                          <span id="calc-derate-decimal">0.5</span> &times; <span id="calc-mbs">0</span> = <span id="calc-derated-mbs" class="text-body">0</span>
+                        </code>
+                      </div>
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -99,7 +114,25 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="row" colspan="2">Working Load Limit</th>
+                  <th scope="row" colspan="2">
+                    Working Load Limit (WLL)
+                    <a class="ps-2 text-secondary" data-bs-toggle="collapse" href="#collapseWLL" role="button" aria-expanded="false" aria-controls="collapseWLL">
+                      <i class="bi bi-info-circle"></i>
+                    </a>
+                    <div class="collapse" id="collapseWLL">
+                      <div class="my-2 fw-normal">
+                        <code>dMBS &divide; Safety Factor = <span class="text-body">WLL</span></code>
+                        <br />
+                        <code>
+                          <span id="calc-wll-dmbs">0</span> &divide; <span id="calc-wll-sf">10</span> = <span id="calc-wll-result" class="text-body">0</span>
+                        </code>
+                        <br />
+                        <code class="text-secondary">
+                          <span id="calc-wll-per-line" class="text-body">0</span> &times; 2 = <span id="calc-wll-per-basket">0</span> Per Basket
+                        </code>
+                      </div>
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -119,7 +152,25 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="row" colspan="2">Minimum Cord Needed</th>
+                  <th scope="row" colspan="2">
+                    Minimum Cord Needed
+                    <a class="ps-2 text-secondary" data-bs-toggle="collapse" href="#collapseCord" role="button" aria-expanded="false" aria-controls="collapseCord">
+                      <i class="bi bi-info-circle"></i>
+                    </a>
+                    <div class="collapse" id="collapseCord">
+                      <div class="my-2 fw-normal">
+                        <code>Load &divide; WLL = <span class="text-body">Minimum Lines</span></code>
+                        <br/>
+                        <code>
+                          <span id="calc-min-cord-load">0</span> &divide; <span id="calc-min-cord-wll">0</span> = <span id="calc-min-cord-lines" class="text-body">0</span>
+                        </code>
+                        <br />
+                        <code class="text-secondary">
+                          <span id="calc-min-cord-lines-input" class="text-body">0</span> &divide; 2 = <span id="calc-min-cord-baskets">0</span> Minimum Baskets
+                        </code>
+                      </div>
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -264,6 +315,12 @@
 
         document.getElementById("output-derated-mbs").textContent = `${deratedMbs.toFixed(1)}`;
         document.getElementById("output-derated-percent").textContent = `(${fiberPercent}% Class ${fiberClass})`;
+
+        // Update calculation display
+        document.getElementById("calc-derate-decimal").textContent = `${deratePercent}`;
+        document.getElementById("calc-mbs").textContent = `${mbs}`;
+        document.getElementById("calc-derated-mbs").textContent = `${deratedMbs.toFixed(1)}`;
+
         computeWLL();
       }
 
@@ -276,12 +333,26 @@
         document.getElementById("output-wll-per-line").textContent = `${wllPerLine.toFixed(1)}`;
         document.getElementById("output-wll-per-basket").textContent = `${wllPerBasket.toFixed(1)}`;
 
+        // Update WLL calculation display
+        document.getElementById("calc-wll-dmbs").textContent = `${deratedMbs.toFixed(1)}`;
+        document.getElementById("calc-wll-sf").textContent = `${safetyFactor}`;
+        document.getElementById("calc-wll-result").textContent = `${wllPerLine.toFixed(1)}`;
+        document.getElementById("calc-wll-per-line").textContent = `${wllPerLine.toFixed(1)}`;
+        document.getElementById("calc-wll-per-basket").textContent = `${wllPerBasket.toFixed(1)}`;
+
         const minimumLines = parseInt(Math.max(Math.ceil(load / wllPerLine), 1)) || 0;
         const minimumBaskets = Math.ceil(minimumLines / 2);
         console.log(`Minimum Lines: ${minimumLines}, Baskets: ${minimumBaskets}`);
 
         document.getElementById("output-minimum-lines").textContent = `${minimumLines}`;
         document.getElementById("output-minimum-baskets").textContent = `${minimumBaskets}`;
+
+        // Update Cord Needed calculation display
+        document.getElementById("calc-min-cord-load").textContent = `${load}`;
+        document.getElementById("calc-min-cord-wll").textContent = `${wllPerLine.toFixed(1)}`;
+        document.getElementById("calc-min-cord-lines").textContent = `${minimumLines}`;
+        document.getElementById("calc-min-cord-lines-input").textContent = `${minimumLines}`;
+        document.getElementById("calc-min-cord-baskets").textContent = `${minimumBaskets}`;
       }
 
       const mediaQueryListColorScheme = window.matchMedia("(prefers-color-scheme: dark)");
