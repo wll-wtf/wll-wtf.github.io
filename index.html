@@ -136,6 +136,45 @@
           </div>
 
           <div class="my-4">
+            <div class="text-center">
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#explanationModal">
+                Explanations and Terms
+              </button>
+            </div>
+
+            <div class="modal fade" id="explanationModal" tabindex="-1" aria-labelledby="explanationModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="explanationModalLabel">Explanations and Terms</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p class="mb-4">
+                      <b>Working Load Limit (WLL):</b> the maximum weight as defined by the manufacturer that a user is allowed to apply to a lifting medium in the performer flying system.
+                    </p>
+                    <p class="mb-4">
+                      <b>Minimum Breaking Strength (MBS):</b> the maximum amount of force a material can withstand before it breaks completely under a straight pull. <span class="fw-medium fst-italic">The cord manufacturer should specify the MBS.</span>
+                    </p>
+                    <p class="mb-4">
+                      <b>Characteristic Load:</b> the maximum force applied to the system resulting from normal intended operating conditions while the system is at rest or in motion.
+                    </p>
+                    <p class="mb-4">
+                      <b>Safety Factor (SF):</b> the ratio between the designated working load limit (WLL) and the load the equipment is expected to fail at. <span class="fw-medium fst-italic">When selecting an appropriate cord for use with body suspension, a safety factor of 10 needs to be employed. This safety factor takes into account dynamic forces and unknown variables but not terminations.</span>
+                    </p>
+                    <p class="mb-4">
+                      <b>Derating Cord:</b> The MBS of the cord needs to be derated by <code>50%</code> for Class 1 fibers and <code>70%</code> for Class 2 fibers to account for knots and terminations, which reduce the strength of the cord.
+                    </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="my-4">
             <p class="text-body-secondary fst-italic">
               This calculator is designed to assist you in selecting the most appropriate cord for your specific application.
               <b>Please note:</b> While overall tensile strength is important, other properties should also be considered when choosing cord for critical applications. Use this tool as a guide only.
