@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>WLL.wtf</title>
-    <meta name="description" content="A working load limit (WLL) calculator for suspension practitioners" />
+    <meta name="description" content="A working load limit (WLL) cord calculator for suspension practitioners" />
     <meta property="og:site_name" content="WLL.wtf" />
     <meta property="og:url" content="https://www.wll.wtf" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="WLL.wtf" />
-    <meta property="og:description" content="A working load limit (WLL) calculator for suspension practitioners" />
+    <meta property="og:description" content="A working load limit (WLL) cord calculator for suspension practitioners" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -25,7 +25,7 @@
         <div class="col"></div>
         <div class="col-sm-12 col-md-8 col-lg-6">
           <h1 class="text-center">WLL.wtf</h1>
-          <p class="lead text-center">A working load limit (WLL) calculator for suspension practitioners</p>
+          <p class="lead text-center">A working load limit (WLL) cord calculator for suspension practitioners</p>
 
           <form class="my-4">
             <div class="row g-1 g-sm-4">
@@ -91,7 +91,8 @@
                     </a>
                     <div class="collapse" id="collapseDMBS">
                       <div class="my-2 fw-normal">
-                        <code>Fiber Class &times; MBS = <span class="text-body">dMBS (derated MBS)</span></code>
+                        <code class="text-secondary">FC = Fiber Class</code><br/>
+                        <code>FC &times; MBS = <span class="text-body">dMBS (derated MBS)</span></code>
                         <br />
                         <code>
                           <span id="calc-derate-decimal">0.5</span> &times; <span id="calc-mbs">0</span> = <span id="calc-derated-mbs" class="text-body">0</span>
@@ -121,7 +122,8 @@
                     </a>
                     <div class="collapse" id="collapseWLL">
                       <div class="my-2 fw-normal">
-                        <code>dMBS &divide; Safety Factor = <span class="text-body">WLL</span></code>
+                        <code class="text-secondary">SF = Safety Factor</code><br/>
+                        <code>dMBS &divide; SF = <span class="text-body">WLL</span></code>
                         <br />
                         <code>
                           <span id="calc-wll-dmbs">0</span> &divide; <span id="calc-wll-sf">10</span> = <span id="calc-wll-result" class="text-body">0</span>
