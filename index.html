@@ -91,8 +91,8 @@
                     </a>
                     <div class="collapse" id="collapseDMBS">
                       <div class="my-2 fw-normal">
-                        <code class="text-secondary">FC = Fiber Class</code><br/>
-                        <code>FC &times; MBS = <span class="text-body">dMBS (derated MBS)</span></code>
+                        <code class="text-secondary">fc = Fiber Class %</code><br/>
+                        <code>fc &times; mbs = <span class="text-body">dMBS (derated MBS)</span></code>
                         <br />
                         <code>
                           <span id="calc-derate-decimal">0.5</span> &times; <span id="calc-mbs">0</span> = <span id="calc-derated-mbs" class="text-body">0</span>
@@ -122,8 +122,8 @@
                     </a>
                     <div class="collapse" id="collapseWLL">
                       <div class="my-2 fw-normal">
-                        <code class="text-secondary">SF = Safety Factor</code><br/>
-                        <code>dMBS &divide; SF = <span class="text-body">WLL</span></code>
+                        <code class="text-secondary">sf = Safety Factor</code><br/>
+                        <code>dMBS &divide; sf = <span class="text-body">wll</span></code>
                         <br />
                         <code>
                           <span id="calc-wll-dmbs">0</span> &divide; <span id="calc-wll-sf">10</span> = <span id="calc-wll-result" class="text-body">0</span>
@@ -161,7 +161,7 @@
                     </a>
                     <div class="collapse" id="collapseCord">
                       <div class="my-2 fw-normal">
-                        <code>Load &divide; WLL = <span class="text-body">Minimum Lines</span></code>
+                        <code>Load &divide; wll = <span class="text-body">Minimum Lines</span></code>
                         <br/>
                         <code>
                           <span id="calc-min-cord-load">0</span> &divide; <span id="calc-min-cord-wll">0</span> = <span id="calc-min-cord-lines" class="text-body">0</span>
@@ -203,6 +203,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
+                    <p class="mb-4 text-center">
+                      <code>fc &times; mbs &divide; sf = wll</code>
+                    </p>
                     <p class="mb-4">
                       <b>Working Load Limit (WLL):</b> the maximum weight as defined by the manufacturer that a user is allowed to apply to a lifting medium in the performer flying system.
                     </p>
