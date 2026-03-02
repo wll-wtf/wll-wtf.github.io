@@ -246,6 +246,7 @@
     ></script>
     <script>
       const pounds = "lbs";
+      const kg = "kg";
       const unitStorageKey = "wll-units";
       const fiberClass1Percent = 0.5;
       const fiberClass2Percent = 0.3;
@@ -266,17 +267,11 @@
       });
 
       document.getElementById("input-fiber-class").addEventListener("input", (event) => {
-        fiberClass = parseInt(event.target.value) || 1;
-        deratePercent = fiberClass === 1 ? fiberClass1Percent : fiberClass2Percent;
-        computeDeratedMBS();
-        console.log(`Fiber Class: ${fiberClass}, Derate Percent: ${deratePercent}`);
+        setFiberClass(event.target.value);
       });
 
       document.getElementById("input-cord-mbs").addEventListener("input", (event) => {
-        let mbs_input = parseInt(event.target.value) || 0;
-        mbs = Math.max(mbs_input, 0);
-        computeDeratedMBS();
-        console.log(`MBS: ${mbs}`);
+        setMBS(event.target.value);
       });
 
       document.getElementById("input-load").addEventListener("input", (event) => {
@@ -295,10 +290,10 @@
 
       function setUnits(value) {
         console.log(`Set units: ${value}`);
-        units = value;
-        localStorage.setItem(unitStorageKey, value);
+        units = value === kg ? kg : pounds;
+        localStorage.setItem(unitStorageKey, units);
 
-        let isLbs = value === pounds;
+        let isLbs = units === pounds;
         document.getElementById("input-units-metric").checked = !isLbs;
         document.getElementById("input-units-imperial").checked = isLbs;
 
@@ -308,6 +303,26 @@
         document.getElementById("label-derated-mbs").textContent = `${units}`;
         document.getElementById("label-per-line").textContent = `${units}`;
         document.getElementById("label-per-basket").textContent = `${units}`;
+      }
+
+      function setFiberClass(value) {
+        console.log(`Set fiber class: ${value}`);
+        fiberClass = parseInt(value);
+        if (fiberClass === 2) {
+          deratePercent = fiberClass2Percent;
+        } else {
+          fiberClass = 1;
+          deratePercent = fiberClass1Percent;
+        }
+        document.getElementById("input-fiber-class").value = `${fiberClass}`;
+        computeDeratedMBS();
+      }
+
+      function setMBS(value) {
+        console.log(`Set MBS: ${value}`);
+        mbs = Math.max(parseInt(value) || 0, 0);
+        document.getElementById("input-cord-mbs").value = mbs > 0 ? `${mbs}` : "";
+        computeDeratedMBS();
       }
 
       function computeDeratedMBS() {
@@ -364,9 +379,12 @@
       }
       mediaQueryListColorScheme.addEventListener("change", handleColorSchemeChange);
 
-      // Initialize on page load
-      setUnits(units);
-      computeDeratedMBS();
+      // Initialize on page load from query params
+      const params = new URLSearchParams(window.location.search);
+      setFiberClass(params.get("fc") || fiberClass);
+      setUnits(params.get("u") || units);
+      setMBS(params.get("mbs"));
+
       handleColorSchemeChange(mediaQueryListColorScheme);
     </script>
   </body>
