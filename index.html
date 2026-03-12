@@ -293,10 +293,7 @@
       });
 
       document.getElementById("input-load").addEventListener("input", (event) => {
-        let load_input = parseInt(event.target.value) || 0;
-        load = Math.max(load_input, 0);
-        computeWLL();
-        console.log(`Load: ${load}`);
+        setLoad(event.target.value);
       });
 
       document.getElementById("input-safety-factor").addEventListener("input", (event) => {
@@ -334,6 +331,13 @@
         }
         document.getElementById("input-fiber-class").value = `${fiberClass}`;
         computeDeratedMBS();
+      }
+
+      function setLoad(value) {
+        console.log(`Set Load: ${value}`);
+        load = Math.max(parseInt(value) || 0, 0);
+        document.getElementById("input-load").value = load > 0 ? `${load}` : "";
+        computeWLL();
       }
 
       function setMBS(value) {
@@ -401,6 +405,9 @@
         if (mbs > 0) {
           params.set("mbs", mbs);
         }
+        if (load > 0) {
+          params.set("load", load);
+        }
         const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
         navigator.clipboard.writeText(shareUrl).then(() => {
           shareBtn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
@@ -422,6 +429,7 @@
       setFiberClass(params.get("fc") || fiberClass);
       setUnits(params.get("u") || units);
       setMBS(params.get("mbs"));
+      setLoad(params.get("load"));
 
       handleColorSchemeChange(mediaQueryListColorScheme);
     </script>
