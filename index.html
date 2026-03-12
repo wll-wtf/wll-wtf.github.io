@@ -190,8 +190,10 @@
 
           <div class="my-4">
             <div class="text-center">
-              <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#explanationModal">
-                Explanations and Terms
+              <button type="button" id="btn-share" class="btn btn-light border my-2"></button>
+              <br/>
+              <button type="button" class="btn btn-light border my-2" data-bs-toggle="modal" data-bs-target="#explanationModal">
+                <i class="bi bi-list-ul"></i> Explanations and Terms
               </button>
             </div>
 
@@ -387,6 +389,26 @@
         document.getElementById("calc-min-cord-lines-input").textContent = `${minimumLines}`;
         document.getElementById("calc-min-cord-baskets").textContent = `${minimumBaskets}`;
       }
+
+      const shareBtnLabel = '<i class="bi bi-link-45deg"></i> Share Results';
+      const shareBtn = document.getElementById("btn-share");
+      shareBtn.innerHTML = shareBtnLabel;
+
+      shareBtn.addEventListener("click", () => {
+        const params = new URLSearchParams();
+        params.set("fc", fiberClass);
+        params.set("u", units);
+        if (mbs > 0) {
+          params.set("mbs", mbs);
+        }
+        const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          shareBtn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
+          setTimeout(() => {
+            shareBtn.innerHTML = shareBtnLabel;
+          }, 2000);
+        });
+      });
 
       const mediaQueryListColorScheme = window.matchMedia("(prefers-color-scheme: dark)");
       function handleColorSchemeChange(mql) {
