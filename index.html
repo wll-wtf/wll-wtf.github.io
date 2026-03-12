@@ -297,10 +297,7 @@
       });
 
       document.getElementById("input-safety-factor").addEventListener("input", (event) => {
-        let sf_input = parseInt(event.target.value) || 1;
-        safetyFactor = Math.max(sf_input, 1);
-        computeWLL();
-        console.log(`Safety Factor: ${safetyFactor}`);
+        setSafetyFactor(event.target.value);
       });
 
       function setUnits(value) {
@@ -337,6 +334,13 @@
         console.log(`Set Load: ${value}`);
         load = Math.max(parseInt(value) || 0, 0);
         document.getElementById("input-load").value = load > 0 ? `${load}` : "";
+        computeWLL();
+      }
+
+      function setSafetyFactor(value) {
+        console.log(`Set Safety Factor: ${value}`);
+        safetyFactor = Math.max(parseInt(value) || 1, 1);
+        document.getElementById("input-safety-factor").value = `${safetyFactor}`;
         computeWLL();
       }
 
@@ -408,6 +412,7 @@
         if (load > 0) {
           params.set("load", load);
         }
+        params.set("sf", safetyFactor);
         const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
         navigator.clipboard.writeText(shareUrl).then(() => {
           shareBtn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
@@ -430,6 +435,7 @@
       setUnits(params.get("u") || units);
       setMBS(params.get("mbs"));
       setLoad(params.get("load"));
+      setSafetyFactor(params.get("sf") || safetyFactor);
 
       handleColorSchemeChange(mediaQueryListColorScheme);
     </script>
