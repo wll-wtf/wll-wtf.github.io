@@ -10,6 +10,7 @@ let deratePercent = fiberClass1Percent;
 let mbs = 0.0;
 let load = 0.0;
 let safetyFactor = 10;
+let cords = [];
 
 document.getElementById("input-units-imperial").addEventListener("change", (event) => {
   setUnits(event.target.dataset.units);
@@ -33,6 +34,17 @@ document.getElementById("input-load").addEventListener("input", (event) => {
 
 document.getElementById("input-safety-factor").addEventListener("input", (event) => {
   setSafetyFactor(event.target.value);
+});
+
+document.getElementById("input-cord-select").addEventListener("change", (event) => {
+  const selectedId = event.target.value;
+  const cord = cords.find((c) => {
+    return c.id === selectedId;
+  });
+  if (cord) {
+    setFiberClass(cord.fc);
+    setMBS(cord.mbs);
+  }
 });
 
 function setUnits(value) {
@@ -131,6 +143,7 @@ function computeWLL() {
 }
 
 document.getElementById("btn-reset").addEventListener("click", () => {
+  document.getElementById("input-cord-select").value = "";
   setFiberClass(1);
   setMBS(0);
   setLoad(0);
@@ -168,6 +181,19 @@ function handleColorSchemeChange(mql) {
   document.querySelector("html").setAttribute("data-bs-theme", theme);
 }
 mediaQueryListColorScheme.addEventListener("change", handleColorSchemeChange);
+
+fetch("./cord.json")
+  .then((res) => res.json())
+  .then((data) => {
+    cords = data;
+    const select = document.getElementById("input-cord-select");
+    for (const cord of cords) {
+      const option = document.createElement("option");
+      option.value = cord.id;
+      option.textContent = `${cord.name} (${cord.manufacturer})`;
+      select.appendChild(option);
+    }
+  });
 
 const params = new URLSearchParams(window.location.search);
 setFiberClass(params.get("fc") || fiberClass);
