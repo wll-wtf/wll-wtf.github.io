@@ -217,6 +217,11 @@ shareBtn.addEventListener("click", () => {
     setTimeout(() => {
       shareBtn.innerHTML = shareBtnLabel;
     }, 2000);
+  }).catch(() => {
+    shareBtn.innerHTML = '<i class="bi bi-x-lg"></i> Failed to copy';
+    setTimeout(() => {
+      shareBtn.innerHTML = shareBtnLabel;
+    }, 2000);
   });
 });
 
@@ -246,6 +251,9 @@ fetch("./cord.json")
     }
 
     selectCord(params.get("cord"));
+  })
+  .catch((err) => {
+    console.error("Failed to load cord.json:", err);
   });
 
 setFiberClass(params.get("fc") || fiberClass);
