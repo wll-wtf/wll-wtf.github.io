@@ -36,15 +36,17 @@ document.getElementById("input-safety-factor").addEventListener("input", (event)
   setSafetyFactor(event.target.value);
 });
 
+document.getElementById("btn-reset").addEventListener("click", () => {
+  document.getElementById("input-cord-select").value = "";
+  setFiberClass(1);
+  setMBS(0);
+  setLoad(0);
+  setSafetyFactor(10);
+  history.replaceState(null, "", window.location.pathname);
+});
+
 document.getElementById("input-cord-select").addEventListener("change", (event) => {
-  const selectedId = event.target.value;
-  const cord = cords.find((c) => {
-    return c.id === selectedId;
-  });
-  if (cord) {
-    setFiberClass(cord.fc);
-    setMBS(cord.mbs);
-  }
+  selectCord(event.target.value);
 });
 
 function setUnits(value) {
@@ -142,14 +144,17 @@ function computeWLL() {
   document.getElementById("calc-min-cord-baskets").textContent = `${minimumBaskets}`;
 }
 
-document.getElementById("btn-reset").addEventListener("click", () => {
-  document.getElementById("input-cord-select").value = "";
-  setFiberClass(1);
-  setMBS(0);
-  setLoad(0);
-  setSafetyFactor(10);
-  history.replaceState(null, "", window.location.pathname);
-});
+function selectCord(cordId) {
+  console.log(`Select cord: ${cordId}`);
+  const cord = cords.find((c) => {
+    return c.id === cordId;
+  });
+  if (cord) {
+    document.getElementById("input-cord-select").value = cord.id;
+    setFiberClass(cord.fc);
+    setMBS(cord.mbs);
+  }
+}
 
 const shareBtnLabel = '<i class="bi bi-link-45deg"></i> Share Results';
 const shareBtn = document.getElementById("btn-share");
@@ -157,15 +162,22 @@ shareBtn.innerHTML = shareBtnLabel;
 
 shareBtn.addEventListener("click", () => {
   const params = new URLSearchParams();
-  params.set("fc", fiberClass);
-  params.set("u", units);
-  if (mbs > 0) {
-    params.set("mbs", mbs);
+  const selectedCord = document.getElementById("input-cord-select").value;
+
+  if (selectedCord) {
+    params.set("cord", selectedCord);
+  } else {
+    params.set("fc", fiberClass);
+    params.set("u", units);
+    if (mbs > 0) {
+      params.set("mbs", mbs);
+    }
+    if (load > 0) {
+      params.set("load", load);
+    }
+    params.set("sf", safetyFactor);
   }
-  if (load > 0) {
-    params.set("load", load);
-  }
-  params.set("sf", safetyFactor);
+
   const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
   navigator.clipboard.writeText(shareUrl).then(() => {
     shareBtn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
@@ -182,6 +194,8 @@ function handleColorSchemeChange(mql) {
 }
 mediaQueryListColorScheme.addEventListener("change", handleColorSchemeChange);
 
+const params = new URLSearchParams(window.location.search);
+
 fetch("./cord.json")
   .then((res) => res.json())
   .then((data) => {
@@ -193,9 +207,11 @@ fetch("./cord.json")
       option.textContent = `${cord.name} (${cord.manufacturer})`;
       select.appendChild(option);
     }
+
+    const cordParam = params.get("cord");
+    selectCord(cordParam);
   });
 
-const params = new URLSearchParams(window.location.search);
 setFiberClass(params.get("fc") || fiberClass);
 setUnits(params.get("u") || units);
 setMBS(params.get("mbs"));
