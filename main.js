@@ -237,6 +237,7 @@ mediaQueryListColorScheme.addEventListener("change", handleColorSchemeChange);
 // Initial load
 
 const params = new URLSearchParams(window.location.search);
+const cordParam = params.get("cord");
 
 fetch("./cord.json")
   .then((res) => res.json())
@@ -250,16 +251,19 @@ fetch("./cord.json")
       select.appendChild(option);
     }
 
-    selectCord(params.get("cord"));
+    selectCord(cordParam);
   })
   .catch((err) => {
     console.error("Failed to load cord.json:", err);
+  })
+  .finally(() => {
+    if (!cordParam) {
+      setFiberClass(params.get("fc") || fiberClass);
+      setMBS(params.get("mbs"));
+    }
+    setUnits(params.get("u") || units);
+    setLoad(params.get("load"));
+    setSafetyFactor(params.get("sf") || safetyFactor);
   });
-
-setFiberClass(params.get("fc") || fiberClass);
-setUnits(params.get("u") || units);
-setMBS(params.get("mbs"));
-setLoad(params.get("load"));
-setSafetyFactor(params.get("sf") || safetyFactor);
 
 handleColorSchemeChange(mediaQueryListColorScheme);
