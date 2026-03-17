@@ -178,9 +178,8 @@ function selectCord(cordId) {
   });
   if (cord) {
     document.getElementById("input-cord-select").value = cord.id;
-    setUnits(cord.units);
     setFiberClass(cord.fc);
-    setMBS(cord.mbs);
+    setMBS(convertWeight(cord.mbs, cord.units, units));
   }
 }
 
