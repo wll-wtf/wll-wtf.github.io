@@ -106,6 +106,7 @@ function setLoad(value) {
   console.log(`Set Load: ${value}`);
   load = Math.max(parseFloat(value) || 0, 0);
   document.getElementById("input-load").value = load > 0 ? `${Math.round(load)}` : "";
+  document.getElementById("minimum-cord-results").classList.toggle("d-none", load <= 0);
   computeWLL();
 }
 
