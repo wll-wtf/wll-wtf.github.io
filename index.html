@@ -78,11 +78,14 @@
             </div>
             <div class="row g-1 g-sm-4">
               <div class="col col-10 col-sm-9">
-                <div class="input-group mb-3 w-100">
+                <div class="input-group w-100">
                   <label class="input-group-text fw-medium d-none d-sm-inline" for="input-cord-select">Cord</label>
-                  <select class="form-select" id="input-cord-select">
+                  <select class="form-select" id="input-cord-select" aria-describedby="cord-help">
                     <option value="" selected>Select Commonly Used Cord</option>
                   </select>
+                </div>
+                <div id="cord-help" class="form-text mb-3 ms-2">
+                  <a id="cord-link" href="#" target="_blank" class="d-none text-secondary text-decoration-none">Open cord product page <i class="bi bi-arrow-up-right-square"></i></a>
                 </div>
               </div> <!-- col -->
 

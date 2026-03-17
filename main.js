@@ -169,6 +169,7 @@ function computeWLL() {
 
 function clearCordSelection() {
   document.getElementById("input-cord-select").value = "";
+  document.getElementById("cord-link").classList.add("d-none");
 }
 
 function selectCord(cordId) {
@@ -181,6 +182,13 @@ function selectCord(cordId) {
   });
   if (cord) {
     document.getElementById("input-cord-select").value = cord.id;
+    const cordLink = document.getElementById("cord-link");
+    if (cord.link) {
+      cordLink.href = cord.link;
+      cordLink.classList.remove("d-none");
+    } else {
+      cordLink.classList.add("d-none");
+    }
     setFiberClass(cord.fc);
     setMBS(convertWeight(cord.mbs, cord.units, units));
   }
