@@ -269,11 +269,11 @@ fetch("./cord.json")
     select.disabled = true;
   })
   .finally(() => {
+    setUnits(params.get("u") || units);
     if (!cordParam) {
       setFiberClass(params.get("fc") || fiberClass);
       setMBS(params.get("mbs"));
     }
-    setUnits(params.get("u") || units);
     setLoad(params.get("load"));
     setSafetyFactor(params.get("sf") || safetyFactor);
   });
