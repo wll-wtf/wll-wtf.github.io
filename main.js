@@ -211,12 +211,12 @@ shareBtn.addEventListener("click", () => {
   } else {
     params.set("fc", fiberClass);
     if (mbs > 0) {
-      params.set("mbs", mbs);
+      params.set("mbs", Math.round(mbs));
     }
   }
 
   if (load > 0) {
-    params.set("load", load);
+    params.set("load", Math.round(load));
   }
 
   const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
