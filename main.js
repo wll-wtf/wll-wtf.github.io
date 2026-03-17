@@ -255,6 +255,9 @@ fetch("./cord.json")
   })
   .catch((err) => {
     console.error("Failed to load cord.json:", err);
+    const select = document.getElementById("input-cord-select");
+    select.options[0].textContent = "Failed to load common cord presets";
+    select.disabled = true;
   })
   .finally(() => {
     if (!cordParam) {
