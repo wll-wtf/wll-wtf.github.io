@@ -61,9 +61,9 @@ function convertWeight(value, fromUnits, toUnits) {
     return value;
   }
   if (toUnits === kg) {
-    return Math.round(value / lbsPerKg);
+    return value / lbsPerKg;
   }
-  return Math.round(value * lbsPerKg);
+  return value * lbsPerKg;
 }
 
 function setUnits(value) {
@@ -104,8 +104,8 @@ function setFiberClass(value) {
 
 function setLoad(value) {
   console.log(`Set Load: ${value}`);
-  load = Math.max(parseInt(value) || 0, 0);
-  document.getElementById("input-load").value = load > 0 ? `${load}` : "";
+  load = Math.max(parseFloat(value) || 0, 0);
+  document.getElementById("input-load").value = load > 0 ? `${Math.round(load)}` : "";
   computeWLL();
 }
 
@@ -118,8 +118,8 @@ function setSafetyFactor(value) {
 
 function setMBS(value) {
   console.log(`Set MBS: ${value}`);
-  mbs = Math.max(parseInt(value) || 0, 0);
-  document.getElementById("input-cord-mbs").value = mbs > 0 ? `${mbs}` : "";
+  mbs = Math.max(parseFloat(value) || 0, 0);
+  document.getElementById("input-cord-mbs").value = mbs > 0 ? `${Math.round(mbs)}` : "";
   computeDeratedMBS();
 }
 
@@ -132,7 +132,7 @@ function computeDeratedMBS() {
   document.getElementById("output-derated-percent").textContent = `(${fiberPercent}% Class ${fiberClass})`;
 
   document.getElementById("calc-derate-decimal").textContent = `${deratePercent}`;
-  document.getElementById("calc-mbs").textContent = `${mbs}`;
+  document.getElementById("calc-mbs").textContent = `${mbs.toFixed(1)}`;
   document.getElementById("calc-derated-mbs").textContent = `${deratedMbs.toFixed(1)}`;
 
   computeWLL();
