@@ -1,6 +1,7 @@
 const pounds = "lbs";
 const kg = "kg";
 const unitStorageKey = "wll-units";
+const lbsPerKg = 2.2;
 const fiberClass1Percent = 0.5;
 const fiberClass2Percent = 0.3;
 
@@ -55,10 +56,26 @@ document.getElementById("input-cord-select").addEventListener("change", (event) 
 
 // Functions
 
+function convertWeight(value, fromUnits, toUnits) {
+  if (fromUnits === toUnits || value === 0) {
+    return value;
+  }
+  if (toUnits === kg) {
+    return Math.round(value / lbsPerKg);
+  }
+  return Math.round(value * lbsPerKg);
+}
+
 function setUnits(value) {
   console.log(`Set units: ${value}`);
+  const previousUnits = units;
   units = value === kg ? kg : pounds;
   localStorage.setItem(unitStorageKey, units);
+
+  if (previousUnits !== units) {
+    setMBS(convertWeight(mbs, previousUnits, units));
+    setLoad(convertWeight(load, previousUnits, units));
+  }
 
   let isLbs = units === pounds;
   document.getElementById("input-units-metric").checked = !isLbs;
