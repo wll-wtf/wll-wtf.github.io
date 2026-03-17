@@ -4,6 +4,7 @@
     "name": "AmSteel-Blue 1/8\"",
     "fc": 2,
     "mbs": 2300,
+    "units": "lbs",
     "manufacturer": "Samson",
     "link": "https://www.go2marine.com/products/samson-rope-amsteel-blue-line?variant=50219328340253"
   },
@@ -12,6 +13,7 @@
     "name": "Polyester 3/16\"",
     "fc": 1,
     "mbs": 770,
+    "units": "lbs",
     "manufacturer": "Quality Nylon Rope",
     "link": "https://qualitynylonrope.com/product/3-16-polyester-rope-white/"
   },
@@ -20,6 +22,7 @@
     "name": "Polyester 1/8\"",
     "fc": 1,
     "mbs": 400,
+    "units": "lbs",
     "manufacturer": "Quality Nylon Rope",
     "link": "https://qualitynylonrope.com/product/1-8-polyester-rope-white/"
   }
