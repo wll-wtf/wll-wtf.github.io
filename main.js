@@ -174,20 +174,21 @@ shareBtn.innerHTML = shareBtnLabel;
 
 shareBtn.addEventListener("click", () => {
   const params = new URLSearchParams();
-  const selectedCord = document.getElementById("input-cord-select").value;
+  params.set("u", units);
+  params.set("sf", safetyFactor);
 
+  const selectedCord = document.getElementById("input-cord-select").value;
   if (selectedCord) {
     params.set("cord", selectedCord);
   } else {
     params.set("fc", fiberClass);
-    params.set("u", units);
     if (mbs > 0) {
       params.set("mbs", mbs);
     }
-    if (load > 0) {
-      params.set("load", load);
-    }
-    params.set("sf", safetyFactor);
+  }
+
+  if (load > 0) {
+    params.set("load", load);
   }
 
   const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
