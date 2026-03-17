@@ -12,6 +12,8 @@ let load = 0.0;
 let safetyFactor = 10;
 let cords = [];
 
+// Event Listeners
+
 document.getElementById("input-units-imperial").addEventListener("change", (event) => {
   setUnits(event.target.dataset.units);
 });
@@ -21,10 +23,12 @@ document.getElementById("input-units-metric").addEventListener("change", (event)
 });
 
 document.getElementById("input-fiber-class").addEventListener("input", (event) => {
+  clearCordSelection();
   setFiberClass(event.target.value);
 });
 
 document.getElementById("input-cord-mbs").addEventListener("input", (event) => {
+  clearCordSelection();
   setMBS(event.target.value);
 });
 
@@ -37,7 +41,7 @@ document.getElementById("input-safety-factor").addEventListener("input", (event)
 });
 
 document.getElementById("btn-reset").addEventListener("click", () => {
-  document.getElementById("input-cord-select").value = "";
+  clearCordSelection();
   setFiberClass(1);
   setMBS(0);
   setLoad(0);
@@ -48,6 +52,8 @@ document.getElementById("btn-reset").addEventListener("click", () => {
 document.getElementById("input-cord-select").addEventListener("change", (event) => {
   selectCord(event.target.value);
 });
+
+// Functions
 
 function setUnits(value) {
   console.log(`Set units: ${value}`);
@@ -144,6 +150,10 @@ function computeWLL() {
   document.getElementById("calc-min-cord-baskets").textContent = `${minimumBaskets}`;
 }
 
+function clearCordSelection() {
+  document.getElementById("input-cord-select").value = "";
+}
+
 function selectCord(cordId) {
   console.log(`Select cord: ${cordId}`);
   const cord = cords.find((c) => {
@@ -155,6 +165,8 @@ function selectCord(cordId) {
     setMBS(cord.mbs);
   }
 }
+
+// Sharing
 
 const shareBtnLabel = '<i class="bi bi-link-45deg"></i> Share Results';
 const shareBtn = document.getElementById("btn-share");
@@ -187,12 +199,16 @@ shareBtn.addEventListener("click", () => {
   });
 });
 
+// Color Scheme
+
 const mediaQueryListColorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 function handleColorSchemeChange(mql) {
   let theme = mql.matches ? "dark" : "light";
   document.querySelector("html").setAttribute("data-bs-theme", theme);
 }
 mediaQueryListColorScheme.addEventListener("change", handleColorSchemeChange);
+
+// Initial load
 
 const params = new URLSearchParams(window.location.search);
 
