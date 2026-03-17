@@ -124,7 +124,7 @@ function setMBS(value) {
 }
 
 function computeDeratedMBS() {
-  const deratedMbs = parseFloat(mbs * deratePercent) || 0;
+  const deratedMbs = mbs * deratePercent;
   const fiberPercent = deratePercent * 100;
   console.log(`Derated MBS: ${deratedMbs} ${fiberPercent}`);
 
@@ -139,7 +139,7 @@ function computeDeratedMBS() {
 }
 
 function computeWLL() {
-  const deratedMbs = parseFloat(mbs * deratePercent) || 0;
+  const deratedMbs = mbs * deratePercent;
   const wllPerLine = deratedMbs / safetyFactor;
   const wllPerBasket = wllPerLine * 2;
   console.log(`WLL Per Line: ${wllPerLine}, Per Basket: ${wllPerBasket}`);
