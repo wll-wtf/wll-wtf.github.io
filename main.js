@@ -160,7 +160,7 @@ function computeWLL() {
   document.getElementById("output-minimum-lines").textContent = `${minimumLines}`;
   document.getElementById("output-minimum-baskets").textContent = `${minimumBaskets}`;
 
-  document.getElementById("calc-min-cord-load").textContent = `${load}`;
+  document.getElementById("calc-min-cord-load").textContent = `${load.toFixed(1)}`;
   document.getElementById("calc-min-cord-wll").textContent = `${wllPerLine.toFixed(1)}`;
   document.getElementById("calc-min-cord-lines").textContent = `${minimumLines}`;
   document.getElementById("calc-min-cord-lines-input").textContent = `${minimumLines}`;
