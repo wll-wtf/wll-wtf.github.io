@@ -172,6 +172,9 @@ function clearCordSelection() {
 }
 
 function selectCord(cordId) {
+  if (!cordId) {
+    return;
+  }
   console.log(`Select cord: ${cordId}`);
   const cord = cords.find((c) => {
     return c.id === cordId;
@@ -242,8 +245,7 @@ fetch("./cord.json")
       select.appendChild(option);
     }
 
-    const cordParam = params.get("cord");
-    selectCord(cordParam);
+    selectCord(params.get("cord"));
   });
 
 setFiberClass(params.get("fc") || fiberClass);
