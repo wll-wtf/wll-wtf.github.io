@@ -6,7 +6,16 @@
     "mbs": 2300,
     "units": "lbs",
     "manufacturer": "Samson",
-    "link": "https://www.go2marine.com/products/samson-rope-amsteel-blue-line?variant=50219328340253"
+    "link": "https://www.samsonrope.com/mooring/amsteel--blue"
+  },
+  {
+    "id": "samson_amsteel_blue_7_64",
+    "name": "AmSteel-Blue 7/64\"",
+    "fc": 2,
+    "mbs": 1400,
+    "units": "lbs",
+    "manufacturer": "Samson",
+    "link": "https://www.samsonrope.com/mooring/amsteel--blue"
   },
   {
     "id": "qnr_polyester_3_16",
