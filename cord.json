@@ -34,5 +34,32 @@
     "units": "lbs",
     "manufacturer": "Quality Nylon Rope",
     "link": "https://qualitynylonrope.com/product/1-8-polyester-rope-white/"
+  },
+  {
+    "id": "fineline_5_series_3_5mm",
+    "name": "5 Series 3.5mm",
+    "fc": 1,
+    "mbs": 350,
+    "units": "kg",
+    "manufacturer": "Fineline Marine",
+    "link": "https://www.finelinemarine.co.nz/collections/5-series/products/5-series-polyester-course-braid"
+  },
+  {
+    "id": "nautilus_acr_cord_3_3mm",
+    "name": "ACR Cord 3.3mm",
+    "fc": 2,
+    "mbs": 600,
+    "units": "kg",
+    "manufacturer": "Nautilus Braids",
+    "link": "https://drive.google.com/file/d/1XfJQS7H2-3UZaUV1hMAIP6R9WLrUEnK0/view?usp=sharing"
+  },
+  {
+    "id": "fineline_dynice_3mm",
+    "name": "Dynice 3mm",
+    "fc": 2,
+    "mbs": 1000,
+    "units": "kg",
+    "manufacturer": "Fineline Marine",
+    "link": "https://www.finelinemarine.co.nz/collections/dynice/products/dynice-dyneema-sk75"
   }
 ]
